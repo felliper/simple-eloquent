@@ -13,6 +13,24 @@ use stdClass;
  */
 class ModelAccessor
 {
+    private static $camelCaseAttributes = true;
+
+    /**
+     * @return void
+     */
+    public static function camelCaseAttributes()
+    {
+        static::$camelCaseAttributes = true;
+    }
+
+    /**
+     * @return void
+     */
+    public static function snakeCaseAttributes()
+    {
+        static::$camelCaseAttributes = false;
+    }
+
     /**
      * @param $model
      * @param $attribute
@@ -20,6 +38,8 @@ class ModelAccessor
      */
     public static function set(&$model, $attribute, $value)
     {
+        $attribute = static::formatAttribute($attribute);
+
         if (is_array($model)) {
             $model[$attribute] = $value;
         } elseif (is_object($model)) {
@@ -34,6 +54,8 @@ class ModelAccessor
      */
     public static function get($model, $attribute)
     {
+        $attribute = static::formatAttribute($attribute);
+
         if (is_array($model)) {
             return $model[$attribute];
         } elseif (is_object($model)) {
@@ -49,6 +71,8 @@ class ModelAccessor
      */
     public static function delete(&$model, $attribute)
     {
+        $attribute = static::formatAttribute($attribute);
+
         if (is_array($model)) {
             unset($model[$attribute]);
         } elseif (is_object($model)) {
@@ -63,6 +87,8 @@ class ModelAccessor
      */
     public static function exists($model, $attribute)
     {
+        $attribute = static::formatAttribute($attribute);
+
         if (is_array($model)) {
             return isset($model[$attribute]);
         } elseif (is_object($model)) {
@@ -99,5 +125,14 @@ class ModelAccessor
         }
 
         return new stdClass;
+    }
+
+    /**
+     * @param string $attribute
+     * @return string
+     */
+    private static function formatAttribute($attribute)
+    {
+        return static::$camelCaseAttributes ? $attribute : snake_case($attribute);
     }
 }

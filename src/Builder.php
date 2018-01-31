@@ -70,9 +70,7 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
             return $result;
         }
 
-        throw (new ModelNotFoundException)->setModel(
-            get_class($this->model), $id
-        );
+        throw (new ModelNotFoundException)->setModel(get_class($this->model), $id);
     }
 
     /**
@@ -183,7 +181,13 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
      */
     public function getSimpleModels($columns = ['*'])
     {
-        return $this->query->get($columns)->all();
+        $items = $this->query->get($columns)->all();
+
+        foreach ($items as &$item) {
+            $this->parseJsonColumnsAsArray($item);
+        }
+
+        return $items;
     }
 
     /**
@@ -222,5 +226,30 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
         }
 
         return $models;
+    }
+
+    /**
+     * Parse JSON columns as array
+     *
+     * @param  array|stdClass  $item
+     * @return array
+     */
+    protected function parseJsonColumnsAsArray($item)
+    {
+        foreach ($item as $key => $value) {
+            if (is_string($value) && (starts_with($value, '[') || starts_with($value, '{'))) {
+                $decodedValue = json_decode($value, true);
+
+                if (!is_null($decodedValue)) {
+                    if (is_object($item)) {
+                        $item->{$key} = $decodedValue;
+                    } else {
+                        $item[$key] = $decodedValue;
+                    }
+                }
+            }
+        }
+
+        return $item;
     }
 }

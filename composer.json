@@ -1,5 +1,5 @@
 {
-  "name": "volosyuk/simple-eloquent",
+  "name": "activix/simple-eloquent",
   "description": "Adaptation of eloquent for retrieving its attributes",
   "license": "MIT",
   "keywords": ["laravel", "eloquent"],
@@ -7,7 +7,11 @@
     {
       "name": "Andrey Volosyuk",
       "email": "valasiuk.andrei@gmail.com"
-    }
+    },
+    {
+        "name": "Philippe Tellier",
+        "email": "ptellier@activix.ca"
+      }
   ],
   "require": {
     "illuminate/database": "5.5.*",

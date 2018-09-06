@@ -528,7 +528,7 @@ trait HasRelationships
      * @param string $related
      * @return string
      */
-    public function joiningTable($related)
+    public function joiningTable($related, $instance = null)
     {
         $models = [
             Str::snake(class_basename($related)),

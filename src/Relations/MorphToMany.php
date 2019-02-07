@@ -18,6 +18,6 @@ class MorphToMany extends \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
     public function addEagerConstraintsSimple(array $models)
     {
-        $this->query->where($this->table.'.'.$this->morphType, $this->morphClass);
+        parent::addEagerConstraints($models);
     }
 }

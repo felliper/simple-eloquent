@@ -2,11 +2,13 @@
 
 namespace Volosyuk\SimpleEloquent\Relations;
 
+use Illuminate\Database\Eloquent\Relations\MorphToMany as BaseMorphToMany;
+
 /**
  * Class MorphToManyWithSimple
  * @package Volosyuk\SimpleEloquent
  */
-class MorphToMany extends \Illuminate\Database\Eloquent\Relations\MorphToMany
+class MorphToMany extends BaseMorphToMany
 {
     use Relation, Pivot;
 

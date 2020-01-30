@@ -3,6 +3,7 @@
 namespace Volosyuk\SimpleEloquent;
 
 use Exception;
+use Illuminate\Support\Str;
 use stdClass;
 
 /**
@@ -133,6 +134,6 @@ class ModelAccessor
      */
     private static function formatAttribute($attribute)
     {
-        return static::$camelCaseAttributes ? $attribute : snake_case($attribute);
+        return static::$camelCaseAttributes ? $attribute : Str::snake($attribute);
     }
 }

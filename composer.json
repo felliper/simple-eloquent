@@ -11,9 +11,10 @@
     {
         "name": "Philippe Tellier",
         "email": "ptellier@activix.ca"
-      }
+    }
   ],
   "require": {
+    "php": "^7.2",
     "illuminate/database": "^6.0",
     "illuminate/support": "^6.0",
     "illuminate/pagination": "^6.0"
@@ -29,6 +30,6 @@
     ]
   },
   "require-dev": {
-    "phpunit/phpunit": "^7.5"
+    "phpunit/phpunit": "^8.0"
   }
 }

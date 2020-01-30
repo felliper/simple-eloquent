@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use stdClass;
 use Volosyuk\SimpleEloquent\Relations\Relation;
@@ -382,7 +383,7 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     protected function parseJsonColumnsAsArray($item)
     {
         foreach ($item as $key => $value) {
-            if (is_string($value) && (starts_with($value, '[') || starts_with($value, '{'))) {
+            if (is_string($value) && (Str::startsWith($value, '[') || Str::startsWith($value, '{'))) {
                 $decodedValue = json_decode($value, true);
 
                 if (!is_null($decodedValue)) {

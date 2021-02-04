@@ -65,7 +65,7 @@ class MorphTo extends BaseMorphTo
             ->with($this->getQuery()->getEagerLoads());
 
         return $query->whereIn(
-            $instance->getTable().'.'.$instance->getKeyName(), $this->gatherKeysByType($type)
+            $instance->getTable().'.'.$instance->getKeyName(), $this->gatherKeysByType($type, $instance->getKeyType())
         )->getSimple();
     }
 
